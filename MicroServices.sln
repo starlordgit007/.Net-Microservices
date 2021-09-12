@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30803.129
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlatformService", "PlatformService\PlatformService.csproj", "{DE1F8837-8B0B-4E9C-9706-5222BB70782D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kubernetes", "Kubernetes", "{2E33CB67-056F-4A0A-B54A-165887FFE826}"
+	ProjectSection(SolutionItems) = preProject
+		Kubernetes\commands-depl.yaml = Kubernetes\commands-depl.yaml
+		Kubernetes\ingress-srv.yaml = Kubernetes\ingress-srv.yaml
+		Kubernetes\local-pvc.yaml = Kubernetes\local-pvc.yaml
+		Kubernetes\mssql-plat-depl.yaml = Kubernetes\mssql-plat-depl.yaml
+		Kubernetes\platform-depl.yaml = Kubernetes\platform-depl.yaml
+		Kubernetes\platform-np-srv.yaml = Kubernetes\platform-np-srv.yaml
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommandService", "CommandService\CommandService.csproj", "{3F76B987-30CC-463D-90F8-E477A68AFC59}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DE1F8837-8B0B-4E9C-9706-5222BB70782D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE1F8837-8B0B-4E9C-9706-5222BB70782D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE1F8837-8B0B-4E9C-9706-5222BB70782D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE1F8837-8B0B-4E9C-9706-5222BB70782D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F76B987-30CC-463D-90F8-E477A68AFC59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F76B987-30CC-463D-90F8-E477A68AFC59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F76B987-30CC-463D-90F8-E477A68AFC59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F76B987-30CC-463D-90F8-E477A68AFC59}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FEAC473D-3F12-4E36-B65C-7D050085D30E}
+	EndGlobalSection
+EndGlobal
