@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using PlatformService.AsyncDataServices;
 using PlatformService.Data;
 using PlatformService.Interface;
 using PlatformService.SyncDataServices.Http;
@@ -46,6 +47,7 @@ namespace Microservice
             services.AddScoped<IPlatformRepo, PlatformRepo>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
+            services.AddSingleton<IMessageBusClient, MessageBusClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

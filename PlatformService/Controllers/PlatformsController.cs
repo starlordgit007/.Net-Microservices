@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using PlatformService.AsyncDataServices;
 using PlatformService.DTO;
 using PlatformService.Interface;
 using PlatformService.Models;
@@ -18,15 +19,18 @@ namespace PlatformService.Controllers
         private readonly IPlatformRepo _platformRepo;
         private readonly IMapper _autoMapper;
         private readonly ICommandDataClient _commandClient;
+        private readonly IMessageBusClient _messageClient;
 
         public PlatformsController(
             IPlatformRepo platformRepo,
             IMapper autoMapper,
-            ICommandDataClient commandClient)
+            ICommandDataClient commandClient,
+            IMessageBusClient messageClient)
         {
             _platformRepo = platformRepo;
             _autoMapper = autoMapper;
             _commandClient = commandClient;
+            _messageClient = messageClient;
         }
 
         [HttpGet]
@@ -55,14 +59,28 @@ namespace PlatformService.Controllers
             _platformRepo.Create(platformModel);
             _platformRepo.SaveChanges();
             var platformReadDto = _autoMapper.Map<PlatformReadDto>(platformModel);
+            //Send Async Message
             try
             {
                 await _commandClient.SendPlatformToCommand(platformReadDto);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Could Not Send Data To Command Service Reason : {ex.Message}");
+                Console.WriteLine($"Could Not Send Data To Command Service Sync Reason : {ex.Message}");
             }
+
+            //Send Async Message
+            try
+            {
+                PlatformPublishDto publishDto = _autoMapper.Map<PlatformPublishDto>(platformReadDto);
+                publishDto.Event = "PlatformPublished";
+                _messageClient.PublishNewPlatform(publishDto);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Could Not Send Data To Command Service ASync Reason : {ex.Message}");
+            }
+
             return CreatedAtRoute(nameof(GetPlatform), new { Id = platformReadDto.Id }, platformReadDto);
         }
     }

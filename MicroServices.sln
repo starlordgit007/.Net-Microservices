@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kubernetes", "Kubernetes", 
 		Kubernetes\mssql-plat-depl.yaml = Kubernetes\mssql-plat-depl.yaml
 		Kubernetes\platform-depl.yaml = Kubernetes\platform-depl.yaml
 		Kubernetes\platform-np-srv.yaml = Kubernetes\platform-np-srv.yaml
+		Kubernetes\rabbitmq-depl.yaml = Kubernetes\rabbitmq-depl.yaml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommandService", "CommandService\CommandService.csproj", "{3F76B987-30CC-463D-90F8-E477A68AFC59}"
