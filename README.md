@@ -19,3 +19,4 @@ Technologies/Concepts Used :
 3. Entity Framework
 4. AutoMappers
 5. gRPC
+6. RabbitMQ
