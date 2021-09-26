@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,8 +11,10 @@ using Microsoft.Extensions.Logging;
 using PlatformService.AsyncDataServices;
 using PlatformService.Data;
 using PlatformService.Interface;
+using PlatformService.SyncDataServices.Grpc;
 using PlatformService.SyncDataServices.Http;
 using System;
+using System.IO;
 
 namespace Microservice
 {
@@ -48,6 +51,7 @@ namespace Microservice
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
             services.AddSingleton<IMessageBusClient, MessageBusClient>();
+            services.AddGrpc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +71,12 @@ namespace Microservice
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapGrpcService<GrpcPlatformService>();
+
+                endpoints.MapGet("/protos/platforms.proto", async context =>
+                 {
+                     await context.Response.WriteAsync(File.ReadAllText("Protos/platforms.proto"));
+                 });
             });
             Console.WriteLine($"{Configuration["CommandService"]}");
             PrepareDatabase.PreparePopulations(app, _env.IsProduction());

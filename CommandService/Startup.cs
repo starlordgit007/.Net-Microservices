@@ -2,6 +2,7 @@ using CommandService.AsyncDataService;
 using CommandService.Data;
 using CommandService.EventProcessing;
 using CommandService.Interface;
+using CommandService.SyncDataServices.Grpc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +37,7 @@ namespace CommandService
             services.AddDbContext<AppDbContext>(option => option.UseInMemoryDatabase("InMem"));
             services.AddHostedService<MessageBusSubcriber>();
             services.AddSingleton<IEventProcessor, EventProcessor>();
+            services.AddScoped<IPlatformDataClient, PlatformDataClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +58,7 @@ namespace CommandService
             {
                 endpoints.MapControllers();
             });
+            PrepDb.PrepareDb(app);
         }
     }
 }
