@@ -11,3 +11,11 @@ Also, For deployment purpose docker and kubernetes is used.
 You can find docker images at 
 https://hub.docker.com/repository/docker/9689599462/platformservice
 https://hub.docker.com/repository/docker/9689599462/commandservice
+
+
+Technologies/Concepts Used : 
+1. Docker
+2. Kubernetes
+3. Entity Framework
+4. AutoMappers
+5. gRPC
